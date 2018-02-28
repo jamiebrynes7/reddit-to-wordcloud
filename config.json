@@ -1,0 +1,9 @@
+{
+    "height": 800,
+    "width": 800,
+    "margin": 5,
+    "max_words": 200,
+    "filtered_words": [
+        "a", "the", "is", "for", "to", "and", "that", "than", "then", "this", "has", "are", "of", "on", "in", "it", "i", "you", "we", "have", "so", "like", "was", "he", "she", "with", "been", "but", "be"
+    ]
+}
