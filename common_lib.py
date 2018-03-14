@@ -21,17 +21,12 @@ class WordcloudSettings:
         return self
 
 def generate_wordcloud(settings: WordcloudSettings):
-    try:
-        verify_settings(settings)
-    except Exception as e:
-        print(e)
-        return 
+    verify_settings(settings)
     comments = extract_comments(settings.url)
     frequency_map = generate_frequency_map(comments, settings.filtered_words)
     generate_image(frequency_map, settings)
 
 def verify_settings(settings: WordcloudSettings):
-
     # Verify the url
     if not settings.url or type(settings.url) != str:
         raise ValueError("Error: Invalid reddit url: {0}".format(settings.url))
@@ -76,7 +71,7 @@ def generate_frequency_map(comments: List[str], filtered_words: Set[str]) -> Dic
     
     return frequency_map
 
-def generate_image(frequency_map: Dict[str, float], settings: WordcloudSettings):
+def generate_image(frequency_map: Dict[str, float], settings: WordcloudSettings) -> PIL.Image:
     wordcloud = WordCloud(margin=settings.margin, height=settings.height, width=settings.width).generate_from_frequencies(frequency_map)
     image = wordcloud.to_image()
-    image.save(settings.output_filename)
+    return image

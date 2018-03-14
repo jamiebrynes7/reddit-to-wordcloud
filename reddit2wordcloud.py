@@ -13,7 +13,12 @@ def main():
     args = parser.parse_args()
 
     settings = construct_wordcloud_settings(args.config).add_url(args.url)
-    generate_wordcloud(settings)
+    try:
+        image = generate_wordcloud(settings)
+        image.save(settings.output_filename)
+    except Exception as e:
+        print(e)
+        return 
 
 def construct_wordcloud_settings(json_file_url: str) -> WordcloudSettings:
     if not json_file_url:
