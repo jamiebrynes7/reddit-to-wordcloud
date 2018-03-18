@@ -24,7 +24,7 @@ def generate_wordcloud(settings: WordcloudSettings):
     verify_settings(settings)
     comments = extract_comments(settings.url)
     frequency_map = generate_frequency_map(comments, settings.filtered_words)
-    generate_image(frequency_map, settings)
+    return generate_image(frequency_map, settings)
 
 def verify_settings(settings: WordcloudSettings):
     # Verify the url
@@ -71,7 +71,7 @@ def generate_frequency_map(comments: List[str], filtered_words: Set[str]) -> Dic
     
     return frequency_map
 
-def generate_image(frequency_map: Dict[str, float], settings: WordcloudSettings) -> PIL.Image:
+def generate_image(frequency_map: Dict[str, float], settings: WordcloudSettings) -> Image:
     wordcloud = WordCloud(margin=settings.margin, height=settings.height, width=settings.width).generate_from_frequencies(frequency_map)
     image = wordcloud.to_image()
     return image
