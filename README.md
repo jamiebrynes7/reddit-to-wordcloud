@@ -7,7 +7,7 @@ This project relies heavily on the [word cloud generator](https://github.com/amu
 ## Getting Started
 
 **Prerequisites** 
-You must have Python 3.5 or greater installed on your system. 
+You must have Python 3.6 installed on your system. 
 
 1. Clone this repository with `git clone git@github.com:jamiebrynes7/reddit-to-wordcloud.git`
 2. (optional) Create a virtual environment
@@ -23,3 +23,7 @@ You must have Python 3.5 or greater installed on your system.
 ### Running the CLI Tool
 
 The CLI tool can be ran with `python reddit2wordcloud.py --url=reddit_url --output=wordcloud.png`. You can optionally include a `--config` argument with a path to a JSON configuration file for the word cloud. An example of this config file can be found [here](config.json).
+
+### Building the AWS Lambda Package
+
+
