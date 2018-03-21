@@ -1,8 +1,10 @@
+import matplotlib
+matplotlib.use('Agg')   # Stops cloud failures due to looking for the _tkinter module
+
 import json
 import base64
 from io import BytesIO
-import matplotlib
-matplotlib.use('Agg')
+
 from common_lib import generate_wordcloud, WordcloudSettings
 
 
