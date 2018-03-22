@@ -33,7 +33,7 @@ def handler(event, context):
                 "status": "done"
             }
         )
-        return {"image": img_str}
+        return {}
     except Exception as e:
         dynamo_db = boto3.resource("dynamodb")
         table = dynamo_db.Table("reddit_to_wordcloud")
