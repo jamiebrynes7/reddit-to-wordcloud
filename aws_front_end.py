@@ -1,9 +1,9 @@
 import boto3
-import requests
+from requests_futures.sessions import FuturesSession
 
 import json
 import random
-import random
+import os
 import string
 
 def random_id(length):
@@ -31,6 +31,7 @@ def handler(event, context):
     )
 
     # Trigger execution lambda
-    requests.post(execution_lambda_url, json=body)
+    session = FuturesSession()
+    session.post("https://qirlhy4te6.execute-api.eu-west-2.amazonaws.com/production/reddit-to-wordcloud-execute", json=body)
 
     return {"status": "working", "db_tag": tag}

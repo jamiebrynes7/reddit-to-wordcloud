@@ -1,4 +1,5 @@
 __pycache__/
 venv/
 setup_env.sh
-aws-lambda-package.zip
+*.zip
+
