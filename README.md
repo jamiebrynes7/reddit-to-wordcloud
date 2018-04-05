@@ -24,6 +24,11 @@ You must have Python 3.6 installed on your system.
 
 The CLI tool can be ran with `python reddit2wordcloud.py --url=reddit_url --output=wordcloud.png`. You can optionally include a `--config` argument with a path to a JSON configuration file for the word cloud. An example of this config file can be found [here](config.json).
 
+## AWS Lambda
+
+Included in this repository is three Python scripts that can be used for AWS Lambda (serverless execution) of the script. The reason there are three is because of the Amazon's API Gateway timeout limits on requests. If you pass in a particularly large thread to the program, it will exceed this time limit, so the process was split into three. There are 2 user facing functions: one for kicking off the execution (`front-end`) and one for polling for success (`polling`). The third is the meat of the system and is not meant to be user facing.  
+
 ### Building the AWS Lambda Package
 
+To build the AWS lambda packages, run `make package` to build all three AWS Lambda functions, or run `make package-front-end`, `make package-execute-service`, or `make package-polling` to build a specific one. 
 
