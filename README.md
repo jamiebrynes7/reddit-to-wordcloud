@@ -10,8 +10,9 @@ This project relies heavily on the [word cloud generator](https://github.com/amu
 You must have Python 3.6 installed on your system. 
 
 1. Clone this repository with `git clone git@github.com:jamiebrynes7/reddit-to-wordcloud.git`
-2. (optional) Create a virtual environment
+2. Create a virtual environment in `./venv/` (you can name this something else but will need to edit the make file if you so wish)
 3. Install the Python requirements with `pip install -r requirements.txt`
+4. (Optional) If you are going to be using AWS Lambda you should run the `setup_dynamo.py` script which will create the tables needed for the operation of the Lambda functions.
 
 ### Getting a Reddit API Key
 
@@ -26,7 +27,7 @@ The CLI tool can be ran with `python reddit2wordcloud.py --url=reddit_url --outp
 
 ## AWS Lambda
 
-Included in this repository is three Python scripts that can be used for AWS Lambda (serverless execution) of the script. The reason there are three is because of the Amazon's API Gateway timeout limits on requests. If you pass in a particularly large thread to the program, it will exceed this time limit, so the process was split into three. There are 2 user facing functions: one for kicking off the execution (`front-end`) and one for polling for success (`polling`). The third is the meat of the system and is not meant to be user facing.  
+Included in this repository is three Python scripts that can be used for AWS Lambda (serverless execution) of the script. The reason there are three is because of the Amazon's API Gateway timeout limits on requests. If you pass in a particularly large thread to the program, it will exceed this time limit, so the process was split into three. There are 2 user facing functions: one for kicking off the execution (`front-end`) and one for polling for success (`polling`). The third is the meat of the system and is not meant to be user facing. 
 
 ### Building the AWS Lambda Package
 
