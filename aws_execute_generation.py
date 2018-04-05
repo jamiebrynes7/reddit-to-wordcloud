@@ -16,6 +16,13 @@ def handler(event, context):
     body = json.loads(event['body'])
     wordcloud_settings = WordcloudSettings(**body["wordcloud_settings"]).add_url(body["url"])
 
+    response = {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+
     try:
         image = generate_wordcloud(wordcloud_settings)
         buffer = BytesIO()
@@ -27,13 +34,18 @@ def handler(event, context):
             Key={
                 "tag": body["db_tag"]
             },
-            UpdateExpression="SET image = :image, status = :status",
+            UpdateExpression="SET image = :image, #s = :result",
             ExpressionAttributeValues={
-                "image": img_str,
-                "status": "done"
+                ":image": img_str,
+                ":result": "done"
+            },
+            ExpressionAttributeNames={
+                "#s": "status"
             }
         )
-        return {}
+
+        response["body"] = json.dumps({"status": "done"})
+        return response
     except Exception as e:
         dynamo_db = boto3.resource("dynamodb")
         table = dynamo_db.Table("reddit_to_wordcloud")
@@ -41,10 +53,16 @@ def handler(event, context):
             Key={
                 "tag": body["db_tag"]
             },
-            UpdateExpression="SET image = :image, status = :status",
+            UpdateExpression="SET image = :image, #s = :result",
             ExpressionAttributeValues={
-                "image": ERROR_STRING.format("Failed to generate wordcloud with error " + str(e)),
-                "status": "error"
+                ":image": ERROR_STRING.format("Failed to generate wordcloud with error " + str(e)),
+                ":result": "error"
+            },
+            ExpressionAttributeNames={
+                "#s": "status"
             }
         )
-        return {"error": ERROR_STRING.format("Failed to generate wordcloud with error " + str(e))}
+        response["body"] = json.dumps(
+            {"error": ERROR_STRING.format("Failed to generate wordcloud with error " + str(e))}
+            )
+        return response

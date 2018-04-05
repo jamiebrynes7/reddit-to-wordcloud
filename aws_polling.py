@@ -9,9 +9,13 @@ def handler(event, context):
     dynamo_db = boto3.resource("dynamodb")
     table = dynamo_db.Table("reddit_to_wordcloud")
 
-    item = table.get_item(Key={"tag": body["db_tag"]})
+    item = table.get_item(Key={"tag": body["db_tag"]})["Item"]
+    response = {
+        "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "body": json.dumps(item)
+    }
 
-    if item["status"] == "done":
-        return {"image": item["image"]}
-    else:
-        return {"status": item["status"]}
+    return response
