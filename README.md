@@ -12,7 +12,7 @@ You must have Python 3.6 installed on your system.
 1. Clone this repository with `git clone git@github.com:jamiebrynes7/reddit-to-wordcloud.git`
 2. Create a virtual environment in `./venv/` (you can name this something else but will need to edit the make file if you so wish)
 3. Install the Python requirements with `pip install -r requirements.txt`
-4. (Optional) If you are going to be using AWS Lambda you should run the `setup_dynamo.py` script which will create the tables needed for the operation of the Lambda functions.
+4. (Optional) If you are going to be using AWS Lambda you should run the `/src/setup_dynamo.py` script which will create the tables needed for the operation of the Lambda functions.
 
 ### Getting a Reddit API Key
 
@@ -32,4 +32,3 @@ Included in this repository is three Python scripts that can be used for AWS Lam
 ### Building the AWS Lambda Package
 
 To build the AWS lambda packages, run `make package` to build all three AWS Lambda functions, or run `make package-front-end`, `make package-execute-service`, or `make package-polling` to build a specific one. 
-
